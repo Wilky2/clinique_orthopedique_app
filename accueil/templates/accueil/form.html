@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="card">
+
+        <img src="{% static 'svg/undraw_New_entries_re_cffr.svg' %}" class="card-img" alt="...">
+        
+        <div class="card-img-overlay w-100 mt-5">
+            <div class="container">
+                <div class="row d-flex justify-content-start mt-2"> 
+                    
+                    <div class="col-12 bg-secondary text-light col-md-6 mt-2"> 
+
+                        {% if form_accompagner %}
+                            <form action="" method="Post" class="form" enctype="multipart/form-data">
+                                <div class="form">
+                                    <h1 class="text-center">Choisir le responsable</h1>
+                                    <div class="mt-4">
+                                        {% bootstrap_form form_accompagner %}
+                                        {% csrf_token %}
+                                        <input type="text" value="form" name="form_accompagner" hidden>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Choisir</button>
+                            </form>
+                        {% endif %}
+            
+                        <form action="" method="Post" class="form" enctype="multipart/form-data">
+                            <div class="form">
+                                <h1 class="text-center">{{message}}</h1>
+                                <div class="mt-4">
+                                    {% bootstrap_form form %}
+                                    {% csrf_token %}
+                                    {% if existe %}
+                                        <input type="text" name="existe" value="oui" hidden>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                            <a class="btn btn-primary w-100 mt-3" href="{% url 'home_accueil' %}">annuler</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

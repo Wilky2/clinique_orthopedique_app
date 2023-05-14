@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card">
+
+        <img src="{% static 'svg2/undraw_data_processing_yrrv.svg' %}" class="card-img" alt="...">
+        
+        <div class="card-img-overlay w-100 justify-content-center d-flex mt-5">
+
+            <div class="container">
+                    <div class="row">
+                        <h1 class="text-center">Liste des cheques</h1>
+                        <table class="table shadow table-bordered mt-3">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">numero</th>
+                                    <th class="text-center" scope="col">numero medecin</th>
+                                    <th class="text-center" scope="col">nom medecin</th>
+                                    <th class="text-center" scope="col">prenom medecin</th>
+                                    <th class="text-center" scope="col">date emission</th>
+                                    <th class="text-center" scope="col">montant</th>
+                                    <th class="text-center" scope="col">date expiration</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-dark">
+                                {% for cheque in page_obj %}
+                                    <tr>
+                                        <td class="text-center">{{cheque.num_cheque}}</td>
+                                        <td class="text-center">{{cheque.num_medecin.num_medecin}}</td>
+                                        <td class="text-center">{{cheque.num_medecin.nom_medecin}}</td>
+                                        <td class="text-center">{{cheque.num_medecin.prenom_medecin}}</td>
+                                        <td class="text-center">{{cheque.date_emission}}</td>
+                                        <td class="text-center">{{cheque.montant_cheque}}</td>
+                                        <td class="text-center">{{cheque.date_expiration}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination d-flex justify-content-center">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-arrow-left"></i></a>
+                                {% endif %}
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-arrow-right"></i></a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+        
+        </div>
+
+    </div>
+{% endblock content %}

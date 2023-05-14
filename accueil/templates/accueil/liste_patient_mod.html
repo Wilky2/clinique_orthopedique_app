@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card">
+
+        <img src="{% static 'svg2/undraw_community_8nwl.svg' %}" class="card-img" alt="...">
+        
+        <div class="card-img-overlay w-100 justify-content-center d-flex mt-5">
+
+            <div class="container">
+                    <div class="row">
+                        <h1 class="text-center">Liste des patients, cliquer sur l'id d'un patient pour le modifier</h1>
+                        <table class="table shadow table-bordered mt-3">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">numero</th>
+                                    <th class="text-center" scope="col">nom</th>
+                                    <th class="text-center" scope="col">prenom</th>
+                                    <th class="text-center" scope="col">adresse</th>
+                                    <th class="text-center" scope="col">telephone</th>
+                                    <th class="text-center" scope="col">date de naissance</th>
+                                    <th class="text-center" scope="col">groupe sanguin</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-dark">
+                                {% for patient in page_obj %}
+                                    <tr>
+                                        <td class="text-center"><a href="{% url 'modifier_patient' patient.num_patient %}">{{patient.num_patient}}</a></td>
+                                        <td class="text-center">{{patient.nom_patient}}</td>
+                                        <td class="text-center">{{patient.prenom_patient}}</td>
+                                        <td class="text-center">{{patient.adresse_patient}}</td>
+                                        <td class="text-center">{{patient.no_tel_patient}}</td>
+                                        <td class="text-center">{{patient.date_naissance}}</td>
+                                        <td class="text-center">{{patient.groupe_sanguin}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination d-flex justify-content-center">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-arrow-left"></i></a>
+                                {% endif %}
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-arrow-right"></i></a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+        
+        </div>
+
+    </div>
+{% endblock content %}

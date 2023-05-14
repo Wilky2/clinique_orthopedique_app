@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="card">
+
+        <img src="{% static 'svg2/undraw_data_processing_yrrv.svg' %}" class="card-img" alt="...">
+        
+        <div class="card-img-overlay w-100 mt-5">
+            <div class="container">
+                <div class="row d-flex justify-content-start mt-2"> 
+                    
+                    <div class="col-12 bg-secondary text-light col-md-6 mt-2"> 
+            
+                        <form action="" method="Post" class="form" enctype="multipart/form-data">
+                            <div class="form">
+                                <h1 class="text-center">Veuiller choisir le nombre de cheque a preparer</h1>
+                                <div class="mt-4">
+                                    {% csrf_token %}
+                                    <input type="number" class="form-control" value=1 min="1" id="nombre_cheque" name="nombre_cheque" required> 
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-4">Valider</button>
+                            <a class="btn btn-primary w-100 mt-3" href="{% url 'home_comptabilite' %}">annuler</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

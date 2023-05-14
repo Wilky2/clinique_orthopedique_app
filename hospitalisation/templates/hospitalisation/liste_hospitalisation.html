@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card">
+
+        <img src="{% static 'svg/undraw_medical_care_movn.svg' %}" class="card-img" alt="...">
+        
+        <div class="card-img-overlay w-100 justify-content-center d-flex mt-5">
+
+            <div class="container">
+                    <div class="row">
+                        <h1 class="text-center">Liste des hospitalisations</h1>
+                        <table class="table shadow table-bordered mt-3">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">id</th>
+                                    <th class="text-center" scope="col">numero medecin</th>
+                                    <th class="text-center" scope="col">nom medecin</th>
+                                    <th class="text-center" scope="col">numero patient</th>
+                                    <th class="text-center" scope="col">nom patient</th>
+                                    <th class="text-center" scope="col">date debut hospitalisation</th>
+                                    <th class="text-center" scope="col">date de sortie prévue</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-dark">
+                                {% for hospitalisation in page_obj %}
+                                    <tr>
+                                        <td class="text-center"><a href="{% url 'modifier_hospitalisation' hospitalisation.id %}">{{hospitalisation.id}}</td>
+                                        <td class="text-center">{{hospitalisation.num_medecin.num_medecin}}</td>
+                                        <td class="text-center">{{hospitalisation.num_medecin.nom_medecin}} {{hospitalisation.num_medecin.prenom_medecin}}</td>
+                                        <td class="text-center">{{hospitalisation.num_patient.num_patient}}</td>
+                                        <td class="text-center">{{hospitalisation.num_patient.nom_patient}} {{hospitalisation.num_patient.prenom_patient}}</td>
+                                        <td class="text-center">{{hospitalisation.date_debut_hospitalisation}}</td>
+                                        <td class="text-center">{% if hospitalisation.date_fin_hospitalisation %}{{hospitalisation.date_fin_hospitalisation}}{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination d-flex justify-content-center">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-arrow-left"></i></a>
+                                {% endif %}
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+                                {% if page_obj.has_next %}
+                                    <a class="btn btn-primary" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-arrow-right"></i></a>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+        
+        </div>
+
+    </div>
+{% endblock content %}
